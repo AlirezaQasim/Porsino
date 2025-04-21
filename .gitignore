@@ -28,4 +28,4 @@ yarn-debug.log*
 yarn-error.log*
 
 package-lock.json # اگر از npm استفاده می‌کنید
-yarn.lock        # اگر از Yarn استفاده می‌کنید
+yarn.lock        # اگر از Yarn استفاده می‌کنیدg
