@@ -18,15 +18,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: ${(props) => props.theme.background};
-  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme?.background}; // استفاده از optional chaining
+  color: ${(props) => props.theme?.text}; // استفاده از optional chaining
   padding: 20px;
   animation: ${fadeIn} 0.5s ease-in-out;
 `;
 
 // استایل برای کارت اصلی که محتوا در آن قرار دارد
 const Card = styled.div`
-  background-color: ${(props) => props.theme.cardBackground};
+  background-color: ${(props) => props.theme?.cardBackground}; // استفاده از optional chaining
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   padding: 48px;
@@ -43,7 +43,7 @@ const Title = styled.h1`
   font-weight: 700;
   margin-bottom: 36px;
   text-align: center;
-  color: ${(props) => props.theme.heading};
+  color: ${(props) => props.theme?.heading}; // استفاده از optional chaining
   direction: ${(props) => (props.lang === 'fa' || props.lang === 'ar' ? 'rtl' : 'ltr')};
 `;
 
@@ -61,14 +61,14 @@ const LanguageButton = styled.button`
   padding: 16px 32px;
   border: none;
   border-radius: 10px;
-  background-color: ${(props) => props.theme.buttonBackground};
-  color: ${(props) => props.theme.buttonText};
+  background-color: ${(props) => props.theme?.buttonBackground}; // استفاده از optional chaining
+  color: ${(props) => props.theme?.buttonText}; // استفاده از optional chaining
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: background-color 0.2s ease-in-out, transform 0.1s ease;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHover};
+    background-color: ${(props) => props.theme?.buttonHover}; // استفاده از optional chaining
     transform: scale(1.05);
   }
 `;
@@ -87,7 +87,7 @@ const AboutUs = styled.div`
   max-width: 100%;
   text-align: center;
   opacity: 0.9;
-  border-top: 1px solid ${(props) => props.theme.secondaryText};
+  border-top: 1px solid ${(props) => props.theme?.secondaryText}; // استفاده از optional chaining
   padding-top: 24px;
 `;
 
@@ -96,14 +96,14 @@ const AboutUsTitle = styled.h2`
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 16px;
-  color: ${(props) => props.theme.heading};
+  color: ${(props) => props.theme?.heading}; // استفاده از optional chaining
 `;
 
 // استایل برای متن بخش "درباره ما"
 const AboutUsText = styled.p`
   font-size: 1.1rem;
   line-height: 1.7;
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme?.text}; // استفاده از optional chaining
 `;
 
 // استایل برای دکمه تغییر تم (حالت شب/روز)
@@ -114,15 +114,15 @@ const ThemeToggleButton = styled.button`
   padding: 10px 14px;
   border: none;
   border-radius: 6px;
-  background-color: ${(props) => props.theme.buttonBackground};
-  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme?.buttonBackground}; // استفاده از optional chaining
+  color: ${(props) => props.theme?.text}; // استفاده از optional chaining
   cursor: pointer;
   font-size: 1.2rem;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHover};
-    color: ${(props) => props.theme.buttonHoverText};
+    background-color: ${(props) => props.theme?.buttonHover}; // استفاده از optional chaining
+    color: ${(props) => props.theme?.buttonHoverText}; // استفاده از optional chaining
   }
 `;
 
@@ -130,12 +130,12 @@ const ThemeToggleButton = styled.button`
 const AuthButton = styled(LanguageButton)`
   font-weight: 600;
   justify-content: center;
-  background-color: ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.buttonText};
+  background-color: ${(props) => props.theme?.primary}; // استفاده از optional chaining
+  color: ${(props) => props.theme?.buttonText}; // استفاده از optional chaining
   box-shadow: 0 6px 12px rgba(0, 123, 255, 0.25);
 
   &:hover {
-    background-color: ${(props) => props.theme.primaryHover};
+    background-color: ${(props) => props.theme?.primaryHover}; // استفاده از optional chaining
     transform: scale(1.08);
   }
 `;
@@ -149,18 +149,25 @@ const AuthButtonText = styled.span`
 function LanguageSelection() {
   const navigate = useNavigate();
   const { i18n, t } = useTranslation();
-  const { setLanguage } = useTheme();
+  const themeContext = useTheme(); // دریافت context
+  // console.log("themeContext in LanguageSelection:", themeContext);
+  const { setLanguage } = themeContext || {}; // استفاده از optional chaining
+
+  // اگر themeContext در دسترس نباشد، یک پیام لودینگ نمایش دهید
+  if (!themeContext) {
+    return <div>Loading Theme...</div>;
+  }
 
   // تابعی که هنگام انتخاب زبان فراخوانی می‌شود
   const handleLanguageChange = (lng) => {
-    setLanguage(lng); // فراخوانی تابع setLanguage از Context API برای به‌روزرسانی زبان
-    navigate('/login'); // هدایت کاربر به صفحه لاگین
+    setLanguage?.(lng); // فراخوانی تابع setLanguage با استفاده از optional chaining
+    // navigate('/login'); // هدایت کاربر به صفحه لاگین
   };
 
   return (
     <Container>
-      <ThemeToggleButton onClick={useTheme().toggleTheme}>
-        {useTheme().theme.isDarkMode ? <BsSun /> : <BsMoon />}
+      <ThemeToggleButton onClick={themeContext?.toggleTheme}> {/* استفاده از optional chaining */}
+        {themeContext?.theme?.isDarkMode ? <BsSun /> : <BsMoon />} {/* استفاده از optional chaining */}
       </ThemeToggleButton>
       <Card>
         <Title lang={i18n.language}>{t('welcome')}</Title>
@@ -187,3 +194,5 @@ function LanguageSelection() {
 }
 
 export default LanguageSelection;
+console.log(LanguageSelection);
+// console.log("LanguageSelection component rendered");

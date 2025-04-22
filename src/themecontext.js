@@ -20,7 +20,9 @@ export const ThemeProvider = ({ children }) => {
     });
 
     const { i18n } = useTranslation();
-    const [currentLanguage, setCurrentLanguage] = useState(localStorage.getItem('appLanguage') || i18n.language);
+    const [currentLanguage, setCurrentLanguage] = useState(() => {
+        return localStorage.getItem('appLanguage') || i18n.language || 'en'; // افزودن یک fallback مطمئن
+    });
 
     useEffect(() => {
         localStorage.setItem('darkMode', theme.isDarkMode);
