@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from './themecontext';
+// import i18n from 'i18next';
+
 
 const Container = styled.div`
   display: flex;
@@ -79,26 +81,26 @@ const Button = styled.button`
   }
 `;
 
-const LinkContainer = styled.div`
-  margin-top: 25px;
-  text-align: center;
-`;
+// const LinkContainer = styled.div`
+//   margin-top: 25px;
+//   text-align: center;
+// `;
 
-const StyledLink = styled.span`
-  font-size: 0.95rem;
-  color: ${(props) => props.theme.secondaryText};
-  cursor: pointer;
-  transition: color 0.3s ease;
+// const StyledLink = styled.span`
+//   font-size: 0.95rem;
+//   color: ${(props) => props.theme.secondaryText};
+//   cursor: pointer;
+//   transition: color 0.3s ease;
 
-  &:hover {
-    color: ${(props) => props.theme.primary};
-    text-decoration: underline;
-  }
+//   &:hover {
+//     color: ${(props) => props.theme.primary};
+//     text-decoration: underline;
+//   }
 
-  &:not(:last-child) {
-    margin-right: 15px;
-  }
-`;
+//   &:not(:last-child) {
+//     margin-right: 15px;
+//   }
+// `;
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -110,8 +112,10 @@ function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Logging in with:', username, password);
-    navigate('/dashboard'); // Example navigation
-  };
+    // navigate('/dashboard'); // Example navigation
+  console.log("login رندر شد",LoginPage);
+
+  };//نوشتن تابعی جهت مقایسه یوزر و پسورد برای تایید ورود به پنل داشبرد
 
   return (
     <Container theme={theme}>
@@ -139,11 +143,14 @@ function LoginPage() {
             />
           </FormGroup>
           <Button theme={theme} type="submit">{t('login')}</Button>
+          {/* موقتا کار نمیکند زیرا کاربر در صورت تایید صحت یوزر نیم و پسورد به پنل داشبرد انتقال پیدا میکند */}
+            <Button theme={theme} onClick={() => navigate('/forgetpass')}>{t('forget_password')}</Button>
+            <Button theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</Button>
         </Form>
-        <LinkContainer>
-          <StyledLink theme={theme} onClick={() => navigate('/signup')}>{t('signup_link')}</StyledLink>
-          <StyledLink theme={theme} onClick={() => navigate('/forgot-password')}>{t('forgot_password_link')}</StyledLink>
-        </LinkContainer>
+        {/* <LinkContainer theme={theme}>
+          <StyledLink theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</StyledLink>
+          <StyledLink theme={theme} onClick={() => navigate('/forgetpass')}>{t('forgetpassword')}</StyledLink>
+        </LinkContainer> */}
       </Card>
     </Container>
   );

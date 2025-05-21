@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LanguageSelection from './sellang.js';
 import LoginPage from './login.js';
 import { ThemeProvider } from './themecontext.js';
+import ForgotPasswordPage from './forgetpass.js';
+import SignUpPage from './signup.js';
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LanguageSelection />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgetpass" element={<ForgotPasswordPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           {/* ... سایر روت‌ها */}
         </Routes>
       </ThemeProvider>

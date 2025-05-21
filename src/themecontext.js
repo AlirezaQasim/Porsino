@@ -1,9 +1,12 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
+// ایجاد Context برای تم
 const ThemeContext = createContext();
 
+// Provider برای فراهم کردن context تم و زبان به کامپوننت‌های فرزند
 export const ThemeProvider = ({ children }) => {
+    // State برای نگهداری اطلاعات تم
     const [theme, setTheme] = useState({
         isDarkMode: localStorage.getItem('darkMode') === 'true' || false,
         background: localStorage.getItem('darkMode') === 'true' ? '#121212' : '#f0f0f0',
@@ -19,14 +22,18 @@ export const ThemeProvider = ({ children }) => {
         heading: localStorage.getItem('darkMode') === 'true' ? '#fff' : '#333',
     });
 
+    // استفاده از هوک useTranslation برای دسترسی به instance i18n
     const { i18n } = useTranslation();
+
+    // State برای نگهداری زبان فعلی برنامه
     const [currentLanguage, setCurrentLanguage] = useState(() => {
-        return localStorage.getItem('appLanguage') || i18n.language || 'en'; // افزودن یک fallback مطمئن
+        return localStorage.getItem('appLanguage') || i18n.language || 'en';
     });
 
+    // Effect برای ذخیره تغییرات تم در localStorage و به‌روزرسانی state تم
     useEffect(() => {
         localStorage.setItem('darkMode', theme.isDarkMode);
-        setTheme(prevTheme => ({
+        setTheme((prevTheme) => ({
             ...prevTheme,
             background: prevTheme.isDarkMode ? '#121212' : '#f0f0f0',
             text: prevTheme.isDarkMode ? '#f0f0f0' : '#121212',
@@ -36,22 +43,27 @@ export const ThemeProvider = ({ children }) => {
             buttonHoverText: prevTheme.isDarkMode ? '#fff' : '#333',
             cardBackground: prevTheme.isDarkMode ? '#222' : '#fff',
             heading: prevTheme.isDarkMode ? '#fff' : '#333',
+            
         }));
     }, [theme.isDarkMode]);
 
+    // Effect برای ذخیره تغییرات زبان در localStorage و تغییر زبان i18n
     useEffect(() => {
         localStorage.setItem('appLanguage', currentLanguage);
         i18n.changeLanguage(currentLanguage);
     }, [currentLanguage, i18n]);
 
+    // تابع برای تغییر حالت تم
     const toggleTheme = () => {
-        setTheme({ ...theme, isDarkMode: !theme.isDarkMode });
+        setTheme((prevTheme) => ({ ...prevTheme, isDarkMode: !prevTheme.isDarkMode }));
     };
 
+    // تابع برای تغییر زبان برنامه
     const setLanguage = (lng) => {
         setCurrentLanguage(lng);
     };
 
+    // فراهم کردن مقادیر تم، تابع تغییر تم، زبان فعلی و تابع تغییر زبان برای کامپوننت‌های فرزند
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, currentLanguage, setLanguage }}>
             {children}
@@ -59,4 +71,5 @@ export const ThemeProvider = ({ children }) => {
     );
 };
 
+// هوک سفارشی برای استفاده آسان از context تم در کامپوننت‌های فرزند
 export const useTheme = () => useContext(ThemeContext);
