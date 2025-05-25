@@ -146,6 +146,7 @@ function LoginPage() {
           {/* موقتا کار نمیکند زیرا کاربر در صورت تایید صحت یوزر نیم و پسورد به پنل داشبرد انتقال پیدا میکند */}
             <Button theme={theme} onClick={() => navigate('/forgetpass')}>{t('forget_password')}</Button>
             <Button theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</Button>
+            <Button theme={theme} onClick={() => navigate('/')}>{t('LanguageSelection')}</Button>
         </Form>
         {/* <LinkContainer theme={theme}>
           <StyledLink theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</StyledLink>

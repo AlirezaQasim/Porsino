@@ -49,5 +49,6 @@
     "sign_up_button": "Sign Up",
     "username_placeholder": "Enter your username",
     "current_password_placeholder": "Enter your current password",
-    "new_password_placeholder": "Enter your new password"
+    "new_password_placeholder": "Enter your new password",
+    "LanguageSelection":"Back to Select Language"
 }

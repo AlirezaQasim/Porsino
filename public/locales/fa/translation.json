@@ -74,5 +74,6 @@
     "username_already_taken": "این نام کاربری قبلاً گرفته شده است.",
     "username_invalid": "نام کاربری نامعتبر است.",
     "reset_password_button": "بازیابی رمز عبور",
-    "back_to_login": "بازگشت به صفحه ورود"
+    "back_to_login": "بازگشت به صفحه ورود",
+    "LanguageSelection":"بازگشت به انتخاب زبان"
 }
