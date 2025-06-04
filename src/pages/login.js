@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/themecontext';
+
 // import i18n from 'i18next';
 
 
@@ -112,7 +113,7 @@ function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Logging in with:', username, password);
-    // navigate('/dashboard'); // Example navigation
+    navigate('/dashboard');
   console.log("login رندر شد",LoginPage);
 
   };//نوشتن تابعی جهت مقایسه یوزر و پسورد برای تایید ورود به پنل داشبرد
