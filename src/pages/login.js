@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../themecontext';
+import { useTheme } from '../contexts/themecontext';
 // import i18n from 'i18next';
 
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LanguageSelection from './sellang.js';
-import LoginPage from './login.js';
-import { ThemeProvider } from './themecontext.js';
-import ForgotPasswordPage from './forgetpass.js';
-import SignUpPage from './signup.js';
+import LanguageSelection from './pages/sellang.js';
+import LoginPage from './pages/login.js';
+import { ThemeProvider } from './contexts/themecontext.js';
+import ForgotPasswordPage from './pages/forgetpass.js';
+import SignUpPage from './pages/signup.js';
 
 function App() {
   return (
