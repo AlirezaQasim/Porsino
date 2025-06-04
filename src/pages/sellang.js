@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ReactCountryFlag from 'react-country-flag';
 import styled, { keyframes } from 'styled-components';
 import { BsSun, BsMoon } from 'react-icons/bs';
-import { useTheme } from './themecontext';
+import { useTheme } from '../contexts/themecontext';
 
 
 // انیمیشن محو شدن برای ورود کامپوننت

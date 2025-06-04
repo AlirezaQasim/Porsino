@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from './themecontext';
+import { useTheme } from '../themecontext';
 // import i18n from 'i18next';
 
 
@@ -148,10 +148,6 @@ function LoginPage() {
             <Button theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</Button>
             <Button theme={theme} onClick={() => navigate('/')}>{t('LanguageSelection')}</Button>
         </Form>
-        {/* <LinkContainer theme={theme}>
-          <StyledLink theme={theme} onClick={() => navigate('/signup')}>{t('signup')}</StyledLink>
-          <StyledLink theme={theme} onClick={() => navigate('/forgetpass')}>{t('forgetpassword')}</StyledLink>
-        </LinkContainer> */}
       </Card>
     </Container>
   );
