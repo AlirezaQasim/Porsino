@@ -97,7 +97,7 @@
     "upcoming_exam_networks": "آزمون پیش رو: شبکه‌های کامپیوتری",
     "new_notes_available": "جزوات جدیدی در دسترس است.",
     "system_update_notice": "اطلاعیه: بروزرسانی سیستم.",
-    "wellcome_user": "خوش آمدید",
+    "welcome_user": "خوش آمدید، {{username}}!",
     "language": "زبان",
     "select_language": "زبان مورد نظر خود را انتخاب کنید",
     "language_changed": "زبان با موفقیت تغییر یافت.",
