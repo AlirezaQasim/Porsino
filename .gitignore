@@ -46,4 +46,4 @@
 /backend/.DS_Store
 /backend/.npm-debug.log*
 /backend/.yarn-debug.log*
-/backend/.yarn-error.log*
+/Backend/.yarn-error.log*
