@@ -1,6 +1,10 @@
 // 1. ایمپورت کردن ماژول Express
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
+
+const router = require('./routes/route'); // ایمپورت کردن روتر
+
 // 2. ایجاد یک نمونه از اپلیکیشن Express
 const app = express();
 
@@ -35,6 +39,18 @@ app.get('/', (req, res) => {
     // یک پاسخ متنی ساده به کلاینت ارسال می‌کنه
     res.send('wellcome to the backend !!');
 });
+app.get('/api/data', (req, res) => {
+    res.json({ message: 'GET request received!' });
+});
+
+app.use(express.json()); // برای پارس کردن JSON در بدنه درخواست‌ها
+
+
+
+// app.post('/api/data', (req, res) => {
+//     console.log('Received JSON data:', req.body); // داده‌های JSON پارس شده در req.body موجودند
+//     res.json({ message: 'Data received successfully!', yourData: req.body });
+// });
 
 // 5. راه‌اندازی سرور برای گوش دادن به درخواست‌ها
 app.listen(PORT, () => {
