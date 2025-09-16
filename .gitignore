@@ -27,8 +27,8 @@
 /frontend/.yarn-debug.log*
 /frontend/.yarn-error.log*
 
-/frontend/.package-lock.json # اگر از npm استفاده می‌کنید
-/frontend/.yarn.lock        # اگر از Yarn استفاده می‌کنید
+/frontend/package-lock.json # اگر از npm استفاده می‌کنید
+#/frontend/yarn.lock        # اگر از Yarn استفاده می‌کنید
 
 # ******backend gitignore******
 /backend/node_modules
@@ -47,3 +47,7 @@
 /backend/.npm-debug.log*
 /backend/.yarn-debug.log*
 /Backend/.yarn-error.log*
+
+
+# main project files
+#package-lock.json
