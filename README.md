@@ -1,7 +1,9 @@
  🚀 Project Name: Porsino
 An Open-Source Online Examination & Assessment Platform
+ 
  📝 Description
 This is a full-featured Online Examination System designed to facilitate remote testing. It allows educators to create, manage, and grade exams while providing students with a seamless, timed, and secure testing environment.
+ 
  ✨ Key Features
 
 * Role-Based Access: Separate dashboards for Admins, Teachers, and Students.
@@ -11,12 +13,14 @@ This is a full-featured Online Examination System designed to facilitate remote 
 * Analytics: Detailed performance reports and statistics for teachers.
 * Responsive Design: Fully functional on mobile and desktop.
 
+
 🛠 Tech Stack
 
 * Frontend: [e.g., React.js / Vue.js / Next.js]
 * Backend: [e.g., Node.js / Python Django / Laravel]
 * Database: [e.g., PostgreSQL / MongoDB]
 * Caching: [e.g., Redis for session management]
+
 
 ⚙️ Installation & Setup
 
