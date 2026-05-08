@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
-const User = require('../models/user');
+const { prisma } = require('../config/db'); // اتصال به پریزما
 
 const protect = asyncHandler(async (req, res, next) => {
     let token;
@@ -10,20 +10,31 @@ const protect = asyncHandler(async (req, res, next) => {
         req.headers.authorization.startsWith('Bearer')
     ) {
         try {
-            // دریافت توکن از هدر Authorization
             token = req.headers.authorization.split(' ')[1];
-
-            // تأیید توکن
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-            // دریافت اطلاعات کاربر از دیتابیس
-            req.user = await User.findById(decoded.id).select('-password'); // رمز عبور را حذف کنید
+            // دریافت اطلاعات کاربر از MySQL با استفاده از ID استخراج شده از توکن
+            // با استفاده از select می‌توانیم انتخاب کنیم که پسورد برنگردد
+            req.user = await prisma.user.findUnique({
+                where: { id: decoded.id },
+                select: {
+                    id: true,
+                    username: true,
+                    email: true,
+                    role: true
+                }
+            });
 
-            next(); // به مسیر بعدی بروید
+            if (!req.user) {
+                res.status(401);
+                throw new Error('کاربر متعلق به این توکن دیگر وجود ندارد');
+            }
+
+            next();
         } catch (error) {
             console.error(error);
             res.status(401);
-            throw new Error('توکن نامعتبر است');
+            throw new Error('توکن نامعتبر است یا منقضی شده');
         }
     }
 

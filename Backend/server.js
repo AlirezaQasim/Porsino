@@ -7,7 +7,7 @@ const connectDB = require('./config/db');
 const userRoutes = require('./routes/userroutes');
 // ایمپورت کردن روت‌ها --->
 
-connectDB();
+// connectDB();
 const app = express();
 const PORT = process.env.PORT || 8080;
 

@@ -77,5 +77,7 @@
     "completed_chapters": "Completed Chapters",
     "upcoming_exams": "Upcoming Exams",
     "LanguageSelection":"Back to Select Language",
-    "Back_to_dashboard": "Back to Dashboard"
+    "Back_to_dashboard": "Back to Dashboard",
+    "forgot_password_button":"Forget Password",
+    "back_button":"Back to previous page"
 }

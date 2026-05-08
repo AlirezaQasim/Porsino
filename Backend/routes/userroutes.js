@@ -1,7 +1,7 @@
 const express = require('express');
 const { registerUser, loginUser, getUserProfile } = require('../controllers/usercontroller');
 const router = express.Router();
-const protect = require('../middleware/authMiddleware'); // <--- این رو اضافه کنید
+const protect = require('../middleware/authmiddleware'); // <--- این رو اضافه کنید
 
 // مسیر POST برای ثبت‌نام کاربر
 router.post('/register', registerUser);

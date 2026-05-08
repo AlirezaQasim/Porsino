@@ -1,51 +1,53 @@
-const asyncHandler = require('express-async-handler'); // <--- این رو اضافه کنید
-const jwt = require('jsonwebtoken'); // <--- این رو اضافه کنید
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-
-const User = require('../models/user');
+const { prisma } = require('../config/db'); // استفاده از کلاینت پریزما که ساختیم
 
 // تابع برای ساخت JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d', // توکن بعد از 30 روز منقضی می‌شود
+    expiresIn: '30d',
   });
 };
 
 // @desc    ثبت‌نام کاربر
-// @route   POST /api/users/register
-// @access  Public
-const registerUser = asyncHandler(async (req, res) => { // <--- تابع رو داخل asyncHandler قرار دهید
+const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
-  // بررسی وجود فیلدها
   if (!username || !email || !password) {
     res.status(400);
     throw new Error('لطفا همه فیلدها را پر کنید');
   }
 
-  // بررسی وجود کاربر
-  const userExists = await User.findOne({ email });
+  // بررسی وجود کاربر در MySQL با استفاده از Prisma
+  const userExists = await prisma.user.findUnique({
+    where: { email }
+  });
+
   if (userExists) {
     res.status(400);
     throw new Error('کاربر با این ایمیل قبلاً ثبت نام کرده است');
   }
 
-  // ایجاد کاربر
-  const user = await User.create({
-    username,
-    email,
-    password,
+  // هش کردن رمز عبور (در پریزما خودکار انجام نمی‌شود، پس دستی انجام می‌دهیم)
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // ایجاد کاربر در MySQL
+  const user = await prisma.user.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+    },
   });
 
   if (user) {
     res.status(201).json({
       message: 'ثبت نام با موفقیت انجام شد',
-      _id: user._id,
+      id: user.id, // در MySQL از id استفاده می‌کنیم نه _id
       username: user.username,
       email: user.email,
-      level: user.level,
-      avatar: user.avatar,
-      token: generateToken(user._id), // <--- ارسال توکن به کاربر
+      token: generateToken(user.id),
     });
   } else {
     res.status(400);
@@ -53,44 +55,41 @@ const registerUser = asyncHandler(async (req, res) => { // <--- تابع رو د
   }
 });
 
-// @desc    ورود کاربر و دریافت توکن
-// @route   POST /api/users/login
-// @access  Public
-const loginUser = asyncHandler(async (req, res) => { // <--- تابع رو داخل asyncHandler قرار دهید
+// @desc    ورود کاربر
+const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  // بررسی وجود ایمیل کاربر
-  const user = await User.findOne({ email }).select('+password'); // <--- رمز عبور را انتخاب کنید
+  // پیدا کردن کاربر با پریزما
+  const user = await prisma.user.findUnique({
+    where: { email }
+  });
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       message: 'ورود موفقیت‌آمیز بود',
-      _id: user._id,
+      id: user.id,
       username: user.username,
       email: user.email,
-      level: user.level,
-      avatar: user.avatar,
-      token: generateToken(user._id), // <--- ارسال توکن
+      token: generateToken(user.id),
     });
   } else {
-    res.status(401); // 401: Unauthorized
+    res.status(401);
     throw new Error('ایمیل یا رمز عبور نامعتبر است');
   }
 });
 
-// @desc    دریافت اطلاعات پروفایل کاربر
-// @route   GET /api/users/profile
-// @access  Private
+// @desc    دریافت پروفایل
 const getUserProfile = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user.id);
+    // پیدا کردن با ID عددی MySQL
+    const user = await prisma.user.findUnique({
+        where: { id: req.user.id }
+    });
 
     if (user) {
         res.json({
-            _id: user._id,
+            id: user.id,
             username: user.username,
             email: user.email,
-            level: user.level,
-            avatar: user.avatar,
         });
     } else {
         res.status(404);
@@ -98,9 +97,4 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
 });
 
-
-module.exports = {
-  registerUser,
-  loginUser,
-  getUserProfile, // <--- این رو اضافه کنید
-};
+module.exports = { registerUser, loginUser, getUserProfile };

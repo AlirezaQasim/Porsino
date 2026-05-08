@@ -65,6 +65,7 @@
     "success": "موفقیت",
     "forgot_password_title": "بازیابی رمز عبور",
     "change_password_title": "تغییر رمز عبور",
+    "change_password_button":"تغییر رمز ورود",
     "change_password_text": "رمز عبور خود را تغییر دهید.",
     "profile_updated": "پروفایل شما با موفقیت به‌روزرسانی شد.",
     "password_changed": "رمز عبور شما با موفقیت تغییر یافت.",
@@ -103,5 +104,7 @@
     "language_changed": "زبان با موفقیت تغییر یافت.",
     "language_english": "انگلیسی",  
     "LanguageSelection":"بازگشت به انتخاب زبان",
-    "Back_to_dashboard": "بازگشت به داشبورد"
+    "Back_to_dashboard": "بازگشت به داشبورد",
+    "forgot_password_button":"رمز عبور را فراموش کردم",
+    "back_button":"بازگشت به صفحه قبلی"
 }
