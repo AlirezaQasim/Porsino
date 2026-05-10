@@ -1,0 +1,27 @@
+{
+  "name": "porsino",
+  "version": "1.0.0",
+  "description": "Project Name This is a full-stack web application with a ReactJS frontend and a Node.js/Express.js backend. The frontend is built using Create React App, and the backend is powered by Node.js with Express.js for API routing and server management. Project Structure The project is organized into two main directories:",
+  "main": "index.js",
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "backend": "cd Backend && npm run dev",
+  "frontend": "cd Frontend && npm run dev",
+  "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlirezaQasim/Porsino.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AlirezaQasim/Porsino/issues"
+  },
+  "homepage": "https://github.com/AlirezaQasim/Porsino#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
