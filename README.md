@@ -16,9 +16,9 @@ This is a full-featured Online Examination System designed to facilitate remote 
 
 🛠 Tech Stack
 
-* Frontend: [e.g., React.js / Vue.js / Next.js]
-* Backend: [e.g., Node.js / Python Django / Laravel]
-* Database: [e.g., PostgreSQL / MongoDB]
+* Frontend: [React.js]
+* Backend: [Node.js & Express]
+* Database: [mysql]
 * Caching: [e.g., Redis for session management]
 
 
