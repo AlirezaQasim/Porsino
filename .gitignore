@@ -54,6 +54,7 @@
 #package-lock.json
 #main directory files
 /node_modules
+/*node_modules
 /.pnp
 /.pnp.js
 /.env
