@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // <--- اتصال روت‌ها به اپلیکیشن
-app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 // اتصال روت‌ها به اپلیکیشن --->
 
 app.get('/', (req, res) => {

@@ -1,29 +1,32 @@
-// import React from 'react';//نیازی به استفاده نیست زیرا در themecotext.js استفاده شده است
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LanguageSelection from './pages/sellang';
-import LoginPage from './pages/login.jsx';
-import { ThemeProvider } from './contexts/themecontext.jsx';
-import ForgotPasswordPage from './pages/forgetpass';
-import SignUpPage from './pages/signup';
-import DashboardPage from './pages/dashboard'; // مسیر پنل داشبورد 
-import UserProfilePage from './pages/userprofile';
+import React, { useState, useEffect } from 'react';
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+
+function AppContent() {
+  const [screen, setScreen] = useState('login');
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#signup') setScreen('signup');
+      else setScreen('login');
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  return screen === 'login' ? <Login /> : <Signup />;
+}
 
 function App() {
   return (
-    <Router>
-      <ThemeProvider>
-        <Routes>
-          <Route path="/" element={<LanguageSelection />} />
-          <Route path="/login" element={<LoginPage />} />{/*مسیر پنل لاگین */}
-          <Route path="/dashboard" element={<DashboardPage/>} /> {/* مسیر پنل داشبورد */}
-          <Route path="/profile" element={<UserProfilePage />} /> {/* مسیر پنل پروفایل */}
-          <Route path="/forgetpass" element={<ForgotPasswordPage />} /> {/* مسیر پنل فراموشی پسورد */}
-          <Route path="/signup" element={<SignUpPage />} /> {/* مسیر پنل ثبت نام */}
-          {/*در اینجا برای مسیر دهی نیازی به استفاده از ./pages/ نیست زیرا در ایمپورت ها مشخص شده است*/}
-          {/* ... سایر روت‌ها */}
-        </Routes>
-      </ThemeProvider>
-    </Router>
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
